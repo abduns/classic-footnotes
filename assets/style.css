@@ -1,0 +1,961 @@
+/* Footnote and Reference — frontend styles */
+
+:root {
+    --csfn-accent: #2563eb;
+    
+    /* Default Light Theme variables - Lighter, more modern */
+    --csfn-bg-drawer: rgba(255, 255, 255, 0.85);
+    --csfn-bg-drawer-solid: #ffffff;
+    --csfn-border-color: rgba(0, 0, 0, 0.06);
+    --csfn-border-drawer: rgba(0, 0, 0, 0.08);
+    --csfn-text-primary: #1c1d21;
+    --csfn-text-secondary: #5f6368;
+    --csfn-text-muted: #70757a;
+    --csfn-bg-card: rgba(0, 0, 0, 0.02);
+    --csfn-bg-card-hover: rgba(0, 0, 0, 0.04);
+    --csfn-bg-chip: #f1f3f4;
+    --csfn-text-chip: #3c4043;
+    --csfn-bg-chip-hover: #e8eaed;
+    --csfn-avatar-border: #ffffff;
+    --csfn-scrollbar-thumb: rgba(0, 0, 0, 0.12);
+    --csfn-scrollbar-thumb-hover: rgba(0, 0, 0, 0.2);
+    
+    /* Tooltip */
+    --csfn-bg-tooltip: #ffffff;
+    --csfn-text-tooltip: #1c1d21;
+    --csfn-border-tooltip: rgba(0, 0, 0, 0.06);
+    --csfn-shadow-tooltip: 0 4px 16px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04), 0 0 0 1px rgba(0, 0, 0, 0.02);
+    --csfn-shadow-tooltip-hover: 0 8px 24px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.03);
+    
+    /* Default behavior */
+    --csfn-tooltip-width: 340px;
+    --csfn-animation-duration: 0.2s;
+    --csfn-chip-radius: 999px;
+    --csfn-chip-size: 22px;
+    --csfn-chip-font-size: 10px;
+    --csfn-chip-icon-size: 10px;
+    --csfn-chip-padding-x: 6px;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        /* Dark Theme variables - Lighter, more modern */
+        --csfn-bg-drawer: rgba(28, 29, 33, 0.85);
+        --csfn-bg-drawer-solid: #1c1d21;
+        --csfn-border-color: rgba(255, 255, 255, 0.06);
+        --csfn-border-drawer: rgba(255, 255, 255, 0.1);
+        --csfn-text-primary: #ffffff;
+        --csfn-text-secondary: #a3a3a3;
+        --csfn-text-muted: #8e918f;
+        --csfn-bg-card: rgba(255, 255, 255, 0.025);
+        --csfn-bg-card-hover: rgba(255, 255, 255, 0.05);
+        --csfn-bg-chip: #2a2b2f;
+        --csfn-text-chip: #e3e3e3;
+        --csfn-bg-chip-hover: #37393e;
+        --csfn-avatar-border: #1a1a1a;
+        --csfn-scrollbar-thumb: rgba(255, 255, 255, 0.12);
+        --csfn-scrollbar-thumb-hover: rgba(255, 255, 255, 0.2);
+        
+        --csfn-bg-tooltip: #2a2b2f;
+        --csfn-text-tooltip: #ffffff;
+        --csfn-border-tooltip: rgba(255, 255, 255, 0.08);
+        --csfn-shadow-tooltip: 0 4px 16px rgba(0, 0, 0, 0.4), 0 2px 4px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.05);
+        --csfn-shadow-tooltip-hover: 0 8px 24px rgba(0, 0, 0, 0.5), 0 4px 8px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.08);
+    }
+}
+
+/* Force light mode for all components when light mode is active */
+body:has(.csfn-drawer--light-mode) {
+    --csfn-bg-chip: #f1f3f4 !important;
+    --csfn-text-chip: #3c4043 !important;
+    --csfn-bg-chip-hover: #e8eaed !important;
+    --csfn-bg-tooltip: #ffffff !important;
+    --csfn-text-tooltip: #1c1d21 !important;
+    --csfn-border-tooltip: rgba(0, 0, 0, 0.06) !important;
+    --csfn-shadow-tooltip: 0 4px 16px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04), 0 0 0 1px rgba(0, 0, 0, 0.02) !important;
+    --csfn-shadow-tooltip-hover: 0 8px 24px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.03) !important;
+    --csfn-text-primary: #1c1d21 !important;
+    --csfn-text-secondary: #5f6368 !important;
+    --csfn-text-muted: #70757a !important;
+    --csfn-bg-card: rgba(0, 0, 0, 0.02) !important;
+    --csfn-bg-card-hover: rgba(0, 0, 0, 0.04) !important;
+    --csfn-border-color: rgba(0, 0, 0, 0.06) !important;
+    --csfn-avatar-border: #ffffff !important;
+}
+
+/* Force dark mode for all components when dark mode is active */
+body:has(.csfn-drawer--dark-mode) {
+    --csfn-bg-chip: #2a2b2f !important;
+    --csfn-text-chip: #e3e3e3 !important;
+    --csfn-bg-chip-hover: #37393e !important;
+    --csfn-bg-tooltip: #2a2b2f !important;
+    --csfn-text-tooltip: #ffffff !important;
+    --csfn-border-tooltip: rgba(255, 255, 255, 0.08) !important;
+    --csfn-shadow-tooltip: 0 4px 16px rgba(0, 0, 0, 0.4), 0 2px 4px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.05) !important;
+    --csfn-shadow-tooltip-hover: 0 8px 24px rgba(0, 0, 0, 0.5), 0 4px 8px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.08) !important;
+    --csfn-text-primary: #ffffff !important;
+    --csfn-text-secondary: #a3a3a3 !important;
+    --csfn-text-muted: #8e918f !important;
+    --csfn-bg-card: rgba(255, 255, 255, 0.025) !important;
+    --csfn-bg-card-hover: rgba(255, 255, 255, 0.05) !important;
+    --csfn-border-color: rgba(255, 255, 255, 0.06) !important;
+    --csfn-avatar-border: #1a1a1a !important;
+}
+
+/* Fallback for browsers that don't support :has() - apply directly to components */
+.csfn-drawer--light-mode ~ .csfn-sources-footer-bar .csfn-sources-bar,
+.csfn-drawer--light-mode ~ * .csfn-chip,
+.csfn-drawer--light-mode ~ * .csfn-tooltip {
+    --csfn-bg-chip: #f1f3f4 !important;
+    --csfn-text-chip: #3c4043 !important;
+    --csfn-bg-chip-hover: #e8eaed !important;
+    --csfn-bg-tooltip: #ffffff !important;
+    --csfn-text-tooltip: #1c1d21 !important;
+    --csfn-border-tooltip: rgba(0, 0, 0, 0.06) !important;
+    --csfn-shadow-tooltip: 0 4px 16px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04), 0 0 0 1px rgba(0, 0, 0, 0.02) !important;
+    --csfn-shadow-tooltip-hover: 0 8px 24px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.03) !important;
+    --csfn-text-primary: #1c1d21 !important;
+    --csfn-text-secondary: #5f6368 !important;
+    --csfn-text-muted: #70757a !important;
+    --csfn-bg-card: rgba(0, 0, 0, 0.02) !important;
+    --csfn-border-color: rgba(0, 0, 0, 0.06) !important;
+    --csfn-avatar-border: #ffffff !important;
+}
+
+.csfn-drawer--dark-mode ~ .csfn-sources-footer-bar .csfn-sources-bar,
+.csfn-drawer--dark-mode ~ * .csfn-chip,
+.csfn-drawer--dark-mode ~ * .csfn-tooltip {
+    --csfn-bg-chip: #2a2b2f !important;
+    --csfn-text-chip: #e3e3e3 !important;
+    --csfn-bg-chip-hover: #37393e !important;
+    --csfn-bg-tooltip: #2a2b2f !important;
+    --csfn-text-tooltip: #ffffff !important;
+    --csfn-border-tooltip: rgba(255, 255, 255, 0.08) !important;
+    --csfn-shadow-tooltip: 0 4px 16px rgba(0, 0, 0, 0.4), 0 2px 4px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.05) !important;
+    --csfn-shadow-tooltip-hover: 0 8px 24px rgba(0, 0, 0, 0.5), 0 4px 8px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.08) !important;
+    --csfn-text-primary: #ffffff !important;
+    --csfn-text-secondary: #a3a3a3 !important;
+    --csfn-text-muted: #8e918f !important;
+    --csfn-bg-card: rgba(255, 255, 255, 0.025) !important;
+    --csfn-border-color: rgba(255, 255, 255, 0.06) !important;
+    --csfn-avatar-border: #1a1a1a !important;
+}
+
+/* ---------- Inline chip ---------- */
+
+.csfn-cite {
+    font-size: inherit;
+    vertical-align: baseline;
+    position: relative;
+    line-height: normal;
+}
+
+.csfn-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    box-sizing: border-box;
+    min-width: var(--csfn-chip-size);
+    height: var(--csfn-chip-size);
+    padding: 0 var(--csfn-chip-padding-x);
+    margin: 0 3px;
+    vertical-align: middle;
+    border-radius: var(--csfn-chip-radius);
+    border: 1px solid var(--csfn-border-color);
+    background: var(--csfn-bg-chip);
+    color: var(--csfn-text-chip);
+    font-size: var(--csfn-chip-font-size);
+    font-weight: 500;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    line-height: 1;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color var(--csfn-animation-duration) ease, border-color var(--csfn-animation-duration) ease, transform var(--csfn-animation-duration) ease, box-shadow var(--csfn-animation-duration) ease;
+    user-select: none;
+    scroll-margin-top: 80px;
+}
+
+.csfn-chip:hover,
+.csfn-chip:focus-visible {
+    background: var(--csfn-bg-chip-hover);
+    transform: translateY(-0.5px);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    outline: none;
+}
+
+.csfn-chip:focus-visible {
+    outline: 2px solid var(--csfn-accent);
+    outline-offset: 1px;
+}
+
+.csfn-chip__favicon {
+    width: var(--csfn-chip-icon-size);
+    height: var(--csfn-chip-icon-size);
+    border-radius: 2px;
+    display: block;
+    object-fit: contain;
+}
+
+.csfn-chip__globe {
+    display: block;
+    width: var(--csfn-chip-icon-size);
+    height: var(--csfn-chip-icon-size);
+}
+
+.csfn-chip__globe-fallback {
+    display: inline-flex;
+}
+
+.csfn-chip__globe-fallback[hidden] {
+    display: none;
+}
+
+.csfn-chip__text {
+    font-variant-numeric: tabular-nums;
+}
+
+/* Simple gray background highlight for chip when back-clicked from drawer */
+.csfn-chip.is-highlighted {
+    background-color: var(--csfn-bg-chip-hover);
+}
+
+/* ---------- Hover/focus tooltip (built by script.js) ---------- */
+
+.csfn-pop {
+    display: none;
+}
+
+.csfn-tooltip {
+    position: fixed;
+    z-index: 99999;
+    width: var(--csfn-tooltip-width);
+    max-width: 90vw;
+    border-radius: 12px;
+    background: var(--csfn-bg-tooltip);
+    border: 1px solid var(--csfn-border-tooltip);
+    color: var(--csfn-text-tooltip);
+    font-size: 13px;
+    line-height: 1.5;
+    box-shadow: var(--csfn-shadow-tooltip);
+    opacity: 0;
+    transform: translateY(6px) scale(0.96);
+    transition: opacity var(--csfn-animation-duration) cubic-bezier(0.16, 1, 0.3, 1),
+                transform var(--csfn-animation-duration) cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow var(--csfn-animation-duration) cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    overflow: hidden;
+}
+
+.csfn-tooltip.is-visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+}
+
+.csfn-tooltip:hover {
+    box-shadow: var(--csfn-shadow-tooltip-hover);
+}
+
+/* Tooltip Header with favicon and pagination */
+.csfn-tooltip__header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--csfn-border-color);
+    background: rgba(0, 0, 0, 0.01);
+}
+
+@media (prefers-color-scheme: dark) {
+    .csfn-tooltip__header {
+        background: rgba(255, 255, 255, 0.02);
+    }
+}
+
+.csfn-tooltip__favicon {
+    width: 16px;
+    height: 16px;
+    border-radius: 3px;
+    flex-shrink: 0;
+}
+
+.csfn-tooltip__icon-fallback {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--csfn-text-muted);
+}
+
+.csfn-tooltip__count {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--csfn-text-secondary);
+    flex: 1;
+}
+
+.csfn-tooltip__pagination {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: auto;
+}
+
+.csfn-tooltip__nav-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border: none;
+    background: transparent;
+    color: var(--csfn-text-secondary);
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color var(--csfn-animation-duration), color var(--csfn-animation-duration);
+    padding: 0;
+}
+
+.csfn-tooltip__nav-btn:hover:not(:disabled) {
+    background-color: var(--csfn-bg-chip);
+    color: var(--csfn-text-primary);
+}
+
+.csfn-tooltip__nav-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.csfn-tooltip__page-indicator {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--csfn-text-muted);
+    min-width: 32px;
+    text-align: center;
+}
+
+/* Tooltip Body */
+.csfn-tooltip__body {
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.csfn-tooltip__title {
+    font-weight: 600;
+    font-size: 13.5px;
+    color: var(--csfn-text-primary);
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+}
+
+.csfn-tooltip__title--link {
+    color: var(--csfn-text-primary);
+    text-decoration: none;
+    cursor: pointer;
+    transition: color var(--csfn-animation-duration);
+}
+
+.csfn-tooltip__title--link:hover {
+    color: var(--csfn-accent);
+    text-decoration: underline;
+}
+
+.csfn-tooltip__domain {
+    font-size: 11.5px;
+    color: var(--csfn-text-muted);
+    line-height: 1.4;
+}
+
+.csfn-tooltip__note {
+    color: var(--csfn-text-secondary);
+    font-size: 12.5px;
+    line-height: 1.5;
+    margin-top: 2px;
+}
+
+/* ---------- Sources Footer Bar ---------- */
+
+.csfn-sources-footer-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 14px;
+    border-top: 1px solid var(--csfn-border-color);
+    background: transparent;
+    margin-top: 32px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.csfn-sources-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid var(--csfn-border-color);
+    background: var(--csfn-bg-card);
+    color: var(--csfn-text-secondary);
+    cursor: pointer;
+    padding: 8px 14px;
+    border-radius: 24px;
+    transition: background-color var(--csfn-animation-duration) cubic-bezier(0.4, 0, 0.2, 1),
+                border-color var(--csfn-animation-duration) cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow var(--csfn-animation-duration) cubic-bezier(0.4, 0, 0.2, 1),
+                transform var(--csfn-animation-duration) cubic-bezier(0.4, 0, 0.2, 1),
+                color var(--csfn-animation-duration) cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+    outline: none;
+}
+
+.csfn-sources-bar:hover {
+    background-color: var(--csfn-bg-chip);
+    border-color: color-mix(in srgb, var(--csfn-text-primary) 8%, var(--csfn-border-color));
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    transform: translateY(-1px);
+    color: var(--csfn-text-primary);
+}
+
+.csfn-sources-bar:active,
+.csfn-sources-bar:focus {
+    border-color: transparent;
+    box-shadow: none;
+    transform: translateY(0);
+}
+
+.csfn-sources-bar__avatars {
+    display: inline-flex;
+    flex-direction: row-reverse;
+    align-items: center;
+}
+
+.csfn-sources-bar__favicon {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid var(--csfn-avatar-border);
+    margin-left: -5px;
+    display: block;
+    object-fit: contain;
+}
+
+.csfn-sources-bar__favicon:last-child {
+    margin-left: 0;
+}
+
+.csfn-sources-bar__fallback-circle {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background-color: var(--csfn-accent);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.csfn-sources-bar__text {
+    font-size: 13px;
+    font-weight: 500;
+    color: inherit;
+    transition: color var(--csfn-animation-duration) cubic-bezier(0.4, 0, 0.2, 1);
+    letter-spacing: -0.01em;
+}
+
+.csfn-sources-bar__avatars {
+    display: inline-flex;
+    flex-direction: row-reverse;
+    align-items: center;
+}
+
+.csfn-sources-bar__favicon {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid var(--csfn-avatar-border);
+    margin-left: -6px;
+    display: block;
+    object-fit: contain;
+    transition: transform var(--csfn-animation-duration) cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.csfn-sources-bar__favicon:last-child {
+    margin-left: 0;
+}
+
+.csfn-sources-bar:hover .csfn-sources-bar__favicon {
+    transform: translateX(2px);
+}
+
+.csfn-sources-bar__fallback-circle {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: var(--csfn-accent);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ---------- Sidebar Panel (Right Flyout) ---------- */
+
+.csfn-drawer-overlay {
+    display: none;
+}
+
+.csfn-drawer {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    bottom: 48px;
+    width: 420px;
+    max-width: calc(100% - 32px);
+    height: calc(100vh - 64px);
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 12px;
+    color: var(--csfn-text-primary);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+                0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    z-index: 99999;
+    transform: translateX(calc(100% + 16px));
+    transition: transform var(--csfn-animation-duration) cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    box-sizing: border-box;
+}
+
+.csfn-drawer.is-open {
+    transform: translateX(0);
+}
+
+/* Left position variant */
+.csfn-drawer--left {
+    right: auto;
+    left: 16px;
+    transform: translateX(calc(-100% - 16px));
+}
+
+.csfn-drawer--left.is-open {
+    transform: translateX(0);
+}
+
+@media (prefers-color-scheme: dark) {
+    .csfn-drawer {
+        background: #1c1d21;
+        border-color: rgba(255, 255, 255, 0.1);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5),
+                    0 10px 10px -5px rgba(0, 0, 0, 0.3);
+    }
+}
+
+@media (max-width: 768px) {
+    .csfn-drawer {
+        top: 8px;
+        right: 8px;
+        bottom: 24px;
+        width: calc(100% - 16px);
+        max-width: calc(100% - 16px);
+        height: calc(100vh - 32px);
+        transform: translateX(calc(100% + 8px));
+    }
+
+    .csfn-drawer--left {
+        right: auto;
+        left: 8px;
+        transform: translateX(calc(-100% - 8px));
+    }
+
+    .csfn-drawer--left.is-open {
+        transform: translateX(0);
+    }
+}
+
+.csfn-drawer__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--csfn-border-color);
+    flex-shrink: 0;
+    background: #ffffff;
+    position: relative;
+}
+
+@media (prefers-color-scheme: dark) {
+    .csfn-drawer__header {
+        background: #1c1d21;
+    }
+}
+
+.csfn-drawer__title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--csfn-text-primary);
+    margin: 0;
+    letter-spacing: -0.02em;
+}
+
+.csfn-drawer__close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    border: none;
+    background: transparent;
+    color: var(--csfn-text-muted);
+    font-size: 20px;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+    transition: color var(--csfn-animation-duration) cubic-bezier(0.4, 0, 0.2, 1),
+                background-color var(--csfn-animation-duration) cubic-bezier(0.4, 0, 0.2, 1),
+                transform var(--csfn-animation-duration) cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+}
+
+.csfn-drawer__close:hover {
+    color: var(--csfn-text-primary);
+    background-color: var(--csfn-bg-card-hover);
+}
+
+.csfn-drawer__close:active {
+    transform: scale(0.92);
+}
+
+.csfn-drawer__close:focus-visible {
+    outline: 2px solid var(--csfn-accent);
+    outline-offset: 2px;
+}
+
+/* Force light mode styles when class is applied (overrides system dark mode) */
+.csfn-drawer--light-mode {
+    background: #ffffff !important;
+    border-color: rgba(0, 0, 0, 0.05) !important;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+                0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
+    color: #1c1d21 !important;
+}
+
+.csfn-drawer--light-mode .csfn-drawer__header {
+    background: #ffffff !important;
+    border-bottom-color: rgba(0, 0, 0, 0.06) !important;
+}
+
+.csfn-drawer--light-mode .csfn-drawer__title {
+    color: #1c1d21 !important;
+}
+
+.csfn-drawer--light-mode .csfn-drawer__close {
+    color: #70757a !important;
+}
+
+.csfn-drawer--light-mode .csfn-drawer__close:hover {
+    color: #1c1d21 !important;
+    background-color: rgba(0, 0, 0, 0.04) !important;
+}
+
+.csfn-drawer--light-mode .csfn-source {
+    background: transparent !important;
+}
+
+.csfn-drawer--light-mode .csfn-source:hover {
+    background-color: rgba(0, 0, 0, 0.02) !important;
+}
+
+.csfn-drawer--light-mode .csfn-source.is-highlighted {
+    background-color: rgba(0, 0, 0, 0.04) !important;
+}
+
+.csfn-drawer--light-mode .csfn-source__title {
+    color: #1c1d21 !important;
+}
+
+.csfn-drawer--light-mode .csfn-source__domain {
+    color: #70757a !important;
+}
+
+.csfn-drawer--light-mode .csfn-source__note {
+    color: #5f6368 !important;
+}
+
+.csfn-drawer--light-mode .csfn-source__num {
+    background: #f1f3f4 !important;
+    color: #3c4043 !important;
+}
+
+.csfn-drawer--light-mode .csfn-source__globe {
+    color: #5f6368 !important;
+}
+
+.csfn-drawer--light-mode .csfn-source__back {
+    color: #70757a !important;
+}
+
+.csfn-drawer--light-mode .csfn-source__back:hover {
+    background-color: #f1f3f4 !important;
+    color: #1c1d21 !important;
+}
+
+/* Force dark mode styles when class is applied */
+.csfn-drawer--dark-mode {
+    background: #1c1d21 !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5),
+                0 10px 10px -5px rgba(0, 0, 0, 0.3) !important;
+}
+
+.csfn-drawer--dark-mode .csfn-drawer__header {
+    background: #1c1d21 !important;
+}
+
+.csfn-drawer--dark-mode .csfn-drawer__title,
+.csfn-drawer--dark-mode .csfn-source__title {
+    color: #ffffff !important;
+}
+
+.csfn-drawer--dark-mode .csfn-source__domain,
+.csfn-drawer--dark-mode .csfn-source__note {
+    color: #a3a3a3 !important;
+}
+
+.csfn-drawer--dark-mode .csfn-source:hover {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+.csfn-drawer--dark-mode .csfn-source__num {
+    background: #2a2b2f !important;
+    color: #a3a3a3 !important;
+}
+
+.csfn-drawer__body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px 16px 24px 16px;
+    scroll-behavior: smooth;
+}
+
+/* Beautiful custom scrollbars inside the drawer */
+.csfn-drawer__body::-webkit-scrollbar {
+    width: 8px;
+}
+
+.csfn-drawer__body::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.csfn-drawer__body::-webkit-scrollbar-thumb {
+    background: var(--csfn-scrollbar-thumb);
+    border-radius: 4px;
+}
+
+.csfn-drawer__body::-webkit-scrollbar-thumb:hover {
+    background: var(--csfn-scrollbar-thumb-hover);
+}
+
+.csfn-drawer__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+/* Source Card styling inside the drawer */
+.csfn-source {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 16px;
+    border: none;
+    border-radius: 8px;
+    background: transparent;
+    transition: background-color var(--csfn-animation-duration) cubic-bezier(0.4, 0, 0.2, 1);
+    scroll-margin-top: 10px;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.csfn-source:hover {
+    background-color: var(--csfn-bg-card);
+}
+
+.csfn-source__marker {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+}
+
+.csfn-source__favicon {
+    width: 16px;
+    height: 16px;
+    border-radius: 3px;
+    object-fit: contain;
+}
+
+.csfn-source__num {
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+    background: var(--csfn-bg-chip);
+    color: var(--csfn-text-secondary);
+    font-size: 9px;
+    font-weight: 600;
+}
+
+.csfn-source__globe {
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--csfn-text-secondary);
+}
+
+.csfn-source__body {
+    flex: 1;
+    min-width: 0;
+}
+
+.csfn-source__link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.csfn-source__title {
+    color: var(--csfn-text-primary);
+    font-weight: 600;
+    font-size: 13.5px;
+    line-height: 1.4;
+    display: block;
+    letter-spacing: -0.01em;
+}
+
+.csfn-source__link:hover .csfn-source__title {
+    color: var(--csfn-accent);
+}
+
+.csfn-source__domain {
+    display: block;
+    font-size: 11.5px;
+    color: var(--csfn-text-muted);
+    margin-top: 2px;
+    line-height: 1.4;
+}
+
+.csfn-source__note {
+    display: block;
+    margin-top: 6px;
+    font-size: 12.5px;
+    color: var(--csfn-text-secondary);
+    line-height: 1.5;
+}
+
+.csfn-source__back {
+    flex-shrink: 0;
+    text-decoration: none;
+    color: var(--csfn-text-muted);
+    align-self: center;
+    margin-left: 4px;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    transition: background-color var(--csfn-animation-duration) cubic-bezier(0.4, 0, 0.2, 1),
+                color var(--csfn-animation-duration) cubic-bezier(0.4, 0, 0.2, 1),
+                transform var(--csfn-animation-duration) cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.csfn-source__back svg {
+    display: block;
+    width: 16px;
+    height: 16px;
+}
+
+.csfn-source__back:hover {
+    background-color: var(--csfn-bg-chip);
+    color: var(--csfn-text-primary);
+    transform: scale(1.05);
+}
+
+.csfn-source__back:active {
+    transform: scale(0.95);
+}
+
+/* Simple gray background highlight for source cards in sidebar */
+.csfn-source.is-highlighted {
+    background-color: var(--csfn-bg-card-hover);
+}
+
+/* ---------- View modes ---------- */
+
+.csfn-drawer--compact .csfn-drawer__body {
+    padding: 6px;
+}
+
+.csfn-drawer--compact .csfn-drawer__list {
+    gap: 0;
+}
+
+.csfn-drawer--compact .csfn-source {
+    align-items: center;
+    padding: 10px 14px;
+}
+
+.csfn-drawer--compact .csfn-source__domain,
+.csfn-drawer--compact .csfn-source__note {
+    display: none;
+}
+
+.csfn-drawer--compact .csfn-source__title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* ---------- Reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+    .csfn-chip,
+    .csfn-tooltip,
+    .csfn-drawer,
+    .csfn-sources-bar,
+    .csfn-sources-bar__favicon,
+    .csfn-drawer__close,
+    .csfn-source,
+    .csfn-source__back {
+        transition: none !important;
+    }
+
+    .csfn-drawer__body {
+        scroll-behavior: auto;
+    }
+
+    .csfn-chip:hover,
+    .csfn-chip:focus-visible {
+        transform: none !important;
+    }
+}
