@@ -1,5 +1,5 @@
 === Classic Footnotes ===
-Contributors: abdunsyakuur
+Contributors: abduns
 Tags: footnotes, citations, sources, references, shortcode
 Requires at least: 6.0
 Tested up to: 7.0

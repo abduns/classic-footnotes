@@ -101,7 +101,7 @@ This project is licensed under the GPL-2.0+ License - see the [LICENSE](https://
 
 ## 👤 Author
 
-**Abdun Syakuur**
+**Dunn**
 
 - GitHub: [@abduns](https://github.com/abduns)
 
@@ -124,4 +124,4 @@ This project is licensed under the GPL-2.0+ License - see the [LICENSE](https://
 
 ---
 
-Made with ❤️ by [Abdun Syakuur](https://github.com/abduns)
+Made with ❤️ by [Dunn](https://github.com/abduns)
