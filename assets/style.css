@@ -31,10 +31,6 @@
     --csfn-tooltip-width: 340px;
     --csfn-animation-duration: 0.2s;
     --csfn-chip-radius: 999px;
-    --csfn-chip-size: 22px;
-    --csfn-chip-font-size: 10px;
-    --csfn-chip-icon-size: 10px;
-    --csfn-chip-padding-x: 6px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -143,29 +139,35 @@ body:has(.csfn-drawer--dark-mode) {
 
 /* ---------- Inline chip ---------- */
 
+/*
+ * .csfn-cite is an inline wrapper around the chip badge.
+ * It inherits the surrounding text's font-size so the chip scales with it.
+ */
 .csfn-cite {
     font-size: inherit;
-    vertical-align: baseline;
     position: relative;
     line-height: normal;
 }
 
+/*
+ * The chip uses font-size in em (relative to the parent text) so it scales
+ * automatically with every theme. Height is driven by padding instead of
+ * a fixed value, ensuring the pill always fits its content proportionally.
+ */
 .csfn-chip {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 4px;
+    gap: 0.3em;
     box-sizing: border-box;
-    min-width: var(--csfn-chip-size);
-    height: var(--csfn-chip-size);
-    padding: 0 var(--csfn-chip-padding-x);
-    margin: 0 3px;
+    padding: 0.2em 0.5em;
+    margin: 0 0.15em;
     vertical-align: middle;
     border-radius: var(--csfn-chip-radius);
     border: 1px solid var(--csfn-border-color);
     background: var(--csfn-bg-chip);
     color: var(--csfn-text-chip);
-    font-size: var(--csfn-chip-font-size);
+    font-size: 0.7em;
     font-weight: 500;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     line-height: 1;
@@ -190,8 +192,8 @@ body:has(.csfn-drawer--dark-mode) {
 }
 
 .csfn-chip__favicon {
-    width: var(--csfn-chip-icon-size);
-    height: var(--csfn-chip-icon-size);
+    width: 1.15em;
+    height: 1.15em;
     border-radius: 2px;
     display: block;
     object-fit: contain;
@@ -199,8 +201,8 @@ body:has(.csfn-drawer--dark-mode) {
 
 .csfn-chip__globe {
     display: block;
-    width: var(--csfn-chip-icon-size);
-    height: var(--csfn-chip-icon-size);
+    width: 1em;
+    height: 1em;
 }
 
 .csfn-chip__globe-fallback {

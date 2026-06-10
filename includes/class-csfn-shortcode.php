@@ -41,6 +41,11 @@ class CSFN_Shortcode
 
     /**
      * Enqueue assets in the head when the current singular post uses [fn].
+     *
+     * Uses strpos() instead of has_shortcode() because page builders like
+     * WPBakery nest [fn] inside their own shortcodes (e.g.
+     * [vc_column_text][fn url=...][/vc_column_text]) which has_shortcode()
+     * can miss.
      */
     public function maybe_enqueue()
     {
@@ -49,7 +54,7 @@ class CSFN_Shortcode
         }
 
         $post = get_post();
-        if (!$post || !has_shortcode($post->post_content, 'fn')) {
+        if (!$post || false === strpos($post->post_content, '[fn')) {
             return;
         }
 
@@ -61,6 +66,12 @@ class CSFN_Shortcode
      */
     private function enqueue()
     {
+        static $done = false;
+        if ($done) {
+            return;
+        }
+        $done = true;
+
         wp_enqueue_style('csfn-style');
         wp_enqueue_script('csfn-script');
     }
@@ -110,7 +121,10 @@ class CSFN_Shortcode
     }
 
     /**
-     * [fn_sources] — manual placement of the "Sources" list.
+     * [fn_sources] — manual placement of the Sources footer bar.
+     *
+     * The drawer panel is always rendered separately via wp_footer
+     * to avoid stacking-context issues from theme/page-builder wrappers.
      */
     public function render_sources($atts, $content = null)
     {
@@ -125,6 +139,6 @@ class CSFN_Shortcode
             return '';
         }
 
-        return CSFN_Renderer::sources($store->all());
+        return CSFN_Renderer::sources_bar($store->all());
     }
 }

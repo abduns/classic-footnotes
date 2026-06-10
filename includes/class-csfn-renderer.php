@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Builds the HTML for inline chips and the "Sources" section.
+ * Builds the HTML for inline chips, the Sources footer bar, and the drawer panel.
  */
 
 if (!defined('ABSPATH')) {
@@ -22,7 +22,9 @@ class CSFN_Renderer
     }
 
     /**
-     * Render the "Sources" list section from collected items.
+     * Render the Sources footer bar (inline in content) + the drawer.
+     *
+     * Used by [fn_sources] manual shortcode where both parts are needed at once.
      */
     public static function sources($items)
     {
@@ -30,7 +32,35 @@ class CSFN_Renderer
             return '';
         }
 
-        return self::template('sources', [
+        return self::sources_bar($items) . self::drawer($items);
+    }
+
+    /**
+     * Render only the Sources footer bar (placed inline in content).
+     */
+    public static function sources_bar($items)
+    {
+        if (empty($items)) {
+            return '';
+        }
+
+        return self::template('sources-bar', [
+            'csfn_items'    => $items,
+            'csfn_fallback' => CSFN_Settings::get('fallback'),
+            'csfn_view_mode' => CSFN_Settings::get('view_mode'),
+        ]);
+    }
+
+    /**
+     * Render only the drawer panel (output at end of <body> via wp_footer).
+     */
+    public static function drawer($items)
+    {
+        if (empty($items)) {
+            return '';
+        }
+
+        return self::template('drawer', [
             'csfn_items'           => $items,
             'csfn_heading'         => CSFN_Settings::get('heading'),
             'csfn_link_attrs'      => self::link_attrs(),
@@ -84,3 +114,4 @@ class CSFN_Renderer
         return ob_get_clean();
     }
 }
+
